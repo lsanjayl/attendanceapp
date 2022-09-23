@@ -2,10 +2,15 @@ import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { useState } from "react";
 import { auth } from "../../Server/Fireconfig";
 import Navbar from "../Navbar/Navbar";
+import {useNavigate} from "react-router-dom"
 const Login = () => {
+    const navigate = useNavigate();
     const login=async(email, password)=> await signInWithEmailAndPassword(auth, email, password)     .then((userCredential) => {
         const user = userCredential.user;
         console.log(user.email)
+        if(user.email){
+            navigate("./attendance")
+        }
     })
         const [email,setEmail]= useState("");
         const [password,setPass]=useState("");
@@ -24,6 +29,3 @@ const Login = () => {
     )
 }
 export default Login;
-// 
-// 
-// 
