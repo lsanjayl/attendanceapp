@@ -21,9 +21,9 @@ const Samplecollection = () => {
             setImage(imageSrc)
             console.log(imageSrc)
             const storageRef = ref(storage, 'images/');
-            // uploadString(storageRef, imageSrc, 'data_url').then((snapshot) => {
-            //     console.log('Uploaded a base64 string!');
-            // });
+            uploadString(storageRef, imageSrc, 'data_url').then((snapshot) => {
+                console.log('Uploaded a base64 string!');
+            });
             setImage('');
         },
 

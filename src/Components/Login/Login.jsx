@@ -9,7 +9,8 @@ const Login = () => {
         const user = userCredential.user;
         console.log(user.email)
         if(user.email){
-            navigate("./attendance")
+            // navigate("./attendance")
+            console.log("logged in");
         }
     })
         const [email,setEmail]= useState("");
@@ -18,7 +19,8 @@ const Login = () => {
         <div className="samplecollection">
         <Navbar/>
         <div className="flex flex-col justify-center items-center my-20">
-            <img width="250px" src="https://www.shamsaalam.com/wp-content/uploads/2019/10/Sri-Sairam-college.png" />
+            <img width="250px" src="https://offthegridit.com/wp-content/uploads/2019/05/e-commerce-512x500.png" />
+            {/* <h1>Registered successfully!!</h1> */}
             <h3 className="text-2xl my-5">Login</h3>
             <br />
             <input type="text" placeholder="Login ID" className="input input-bordered input-primary w-full max-w-xs" onChange={(e)=>setEmail(e.target.value)} value={email}  />

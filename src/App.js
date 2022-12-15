@@ -16,8 +16,10 @@ function App() {
         <Route path="/samplecollection" element={<Samplecollection />}></Route>
       </Routes>
     </Router>
-    // <Attendance/>
+
   );
 }
+
+
 
 export default App;

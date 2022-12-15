@@ -12,6 +12,7 @@ const videoConstraints = {
 const Attendance = () => {
     const webcamRef = React.useRef(null);
     const [image, setImage] = useState('');
+    const [present,setPresent]=useState('');
     async function loadModels() {
         console.log("enterd");
         await faceapi.nets.tinyFaceDetector.loadFromUri("/models");
@@ -22,12 +23,11 @@ const Attendance = () => {
         console.log("models loaded")
 
     }
-
-
+    // https://github.com/lsanjayl/Face-Recognition-JavaScript-master-master/blob/master/labeled_images/Swaminathan/1.jpeg
     const loadLabeledImages = async () => {
         const descriptions = []
         for (let i = 1; i <= 2; i++) {
-            const img = await faceapi.fetchImage(`https://raw.githubusercontent.com/lsanjayl/Face-Recognition-JavaScript-master/master/labeled_images/Sanjay/${i}.jpg`)
+            const img = await faceapi.fetchImage(`https://raw.githubusercontent.com/lsanjayl/Face-Recognition-JavaScript-master-master/master/labeled_images/Swaminathan/${i}.jpeg`)
             const detections = await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
             descriptions.push(detections.descriptor)
         }
@@ -57,6 +57,9 @@ const Attendance = () => {
         console.log(detections)
         const results = faceMatcher.findBestMatch(detections.descriptor)
         console.log(results.label)
+        if(results.label){
+            setPresent(results.label);
+        }
         // console.log(detections.descriptor)
     }
 
@@ -66,7 +69,7 @@ const Attendance = () => {
             <div className="webcam-container">
                 <div className="webcam-container">
                     <div className="webcam-img">
-                        {image == '' ? <Webcam className="rounded-lg"
+                        {image == '' ? <Webcam className="rounded-lg highlight-2"
                             audio={false}
                             height={350}
                             ref={webcamRef}
@@ -76,10 +79,17 @@ const Attendance = () => {
                         /> : <img id="op" src={image} className="rounded-lg" />}
                     </div>
                 </div>
-                <button onClick={(e) => { e.preventDefault(); capture(); }}>
-                    Capture</button>
-                <button onClick={(e) => { e.preventDefault(); detect(); }}>
+                { present==''?<>
+                <button className="btn btn-primary" onClick={(e) => { e.preventDefault(); capture(); }}>Capture</button>
+                <button >
+                    </button>
+                <button  className="btn btn-primary" onClick={(e) => { e.preventDefault(); detect(); }}>
                     Detect</button>
+                    </>
+                    :
+                    <button  className="btn btn-primary">
+                    Present</button>
+}
             </div>
         </div>
     );
